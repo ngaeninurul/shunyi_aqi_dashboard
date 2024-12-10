@@ -5,7 +5,7 @@ import streamlit as st
 sns.set(style="dark")
 
 # load dataset
-data_path = "/data/PRSA_Data_Shunyi_20130301-20170228.csv"
+data_path = "data/PRSA_Data_Shunyi_20130301-20170228.csv"
 df = pd.read_csv(data_path)
 
 # data preprocessing
