@@ -20,7 +20,7 @@ with st.sidebar:
     """,
     unsafe_allow_html=True
     )
-    st.image("logo.png")
+    st.image("dashboard/logo.png")
     
     st.markdown("<br>", unsafe_allow_html=True)
         
