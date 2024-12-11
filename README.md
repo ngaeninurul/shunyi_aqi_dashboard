@@ -64,13 +64,6 @@ streamlit run dashboard/dashboard.py
 ### Access the Dashboard
 Check the `url.txt` file for the link to the hosted version of the dashboard.
 
----
-
-## Deployment
-
-To deploy the dashboard on a server, install dependencies in the target environment and configure Streamlit with hosting solutions like Heroku or AWS.
-
----
 
 ## License
 This project is licensed under the MIT License.
