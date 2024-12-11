@@ -52,8 +52,8 @@ filtered_df = df[
 ]
 
 # layout
-st.title("SHUNYI AIR QUALITY INDEX (AQI)")
-st.subheader("Overview of Air Quality Index in Shunyi through 2013-2017")
+st.markdown("<h1 style='text-align: center;'>SHUNYI AIR QUALITY INDEX (AQI)</h1>", unsafe_allow_html=True)
+#st.markdown("<h4 style='text-align: center;'>Overview of Shunyi Air  Quality Index over 2013-2017</h3>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
 # key metric display
@@ -67,20 +67,10 @@ with col3:
     st.metric("Min AQI", value=int(filtered_df["PM2.5"].min()))
     
 st.markdown("<br>", unsafe_allow_html=True)
-    
-# line chart: AQI over time
-st.subheader("AQI Trends Over Time")
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.lineplot(data=filtered_df, x="Date", y="PM2.5", ax=ax, color="blue")
-ax.set_title("AQI Trends", fontsize=16)
-ax.set_xlabel("Date", fontsize=12)
-ax.set_ylabel("AQI", fontsize=12)
-st.pyplot(fig)
-
-st.markdown("<br>", unsafe_allow_html=True)
+st.header("Air Quality Index Trends Overtime")
 
 # annual AQI trend
-st.subheader("Annual AQI Trend")
+st.subheader("Annual AQI Trends")
 filtered_df['Year'] = filtered_df['Date'].dt.year
 annual_avg_aqi = filtered_df.groupby('Year')['PM2.5'].mean()
 annual_avg_aqi_df = annual_avg_aqi.reset_index()
@@ -92,34 +82,67 @@ ax.set_ylabel("Average AQI", fontsize=12)
 st.pyplot(fig)
 
 st.markdown("<br>", unsafe_allow_html=True)
+    
+# daily AQI trend
+st.subheader("Daily AQI Trends")
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.lineplot(data=filtered_df, x="Date", y="PM2.5", ax=ax, color="navy")
+ax.set_title("AQI Trends", fontsize=16)
+ax.set_xlabel("Date", fontsize=12)
+ax.set_ylabel("AQI", fontsize=12)
+st.pyplot(fig)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.header("Air Quality Index Pattern by Season")
+
+# seasonal pattern barplot
+st.subheader("Seasonal AQI Patterns")
+filtered_df["Season"] = filtered_df["Date"].dt.month % 12 // 3 + 1
+season_mapping = {1: "Winter", 2: "Spring", 3: "Summer", 4: "Autumn"}
+filtered_df["Season"] = filtered_df["Season"].map(season_mapping)
+seasonal_avg_aqi = filtered_df.groupby("Season")["PM2.5"].mean().reindex([ "Summer", "Spring",  "Autumn", "Winter"])
+fig, ax = plt.subplots(figsize=(10, 5))
+palette = sns.color_palette("Greys", n_colors=4)
+sns.barplot(x=seasonal_avg_aqi.index, y=seasonal_avg_aqi.values, palette=palette, ax=ax)
+ax.set_title("Average AQI by Season", fontsize=16)
+ax.set_xlabel("Season", fontsize=12)
+ax.set_ylabel("Average AQI (PM2.5)", fontsize=12)
+ax.grid(visible=True, axis='y', linestyle='--', alpha=0.5)
+st.pyplot(fig)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# Seasonal AQI Patterns - Boxplot
+st.subheader("Seasonal AQI Distribution")
+filtered_df["Season"] = filtered_df["Date"].dt.month % 12 // 3 + 1
+season_mapping = {1: "Winter", 2: "Spring", 3: "Summer", 4: "Autumn"}
+filtered_df["Season"] = filtered_df["Season"].map(season_mapping)
+fig, ax = plt.subplots(figsize=(10, 5))
+palette = sns.color_palette("YlOrBr", n_colors=4)
+sns.boxplot(x="Season", y="PM2.5", data=filtered_df, order=["Summer", "Spring", "Autumn", "Winter"], palette=palette, ax=ax)
+ax.set_title("AQI Distribution by Season", fontsize=16)
+ax.set_xlabel("Season", fontsize=12)
+ax.set_ylabel("AQI (PM2.5)", fontsize=12)
+ax.grid(visible=True, axis='y', linestyle='--', alpha=0.5)
+st.pyplot(fig)
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 # monthly AQI trend
-st.subheader("Monthly AQI Trend")
+st.subheader("Seasonal AQI Pattern by Month")
 filtered_df['Month'] = filtered_df['Date'].dt.month
 monthly_avg_aqi = filtered_df.groupby(['Year', 'Month'])['PM2.5'].mean().unstack()
 monthly_avg_aqi_df = monthly_avg_aqi.reset_index()
 fig, ax = plt.subplots(figsize=(10, 6))
-monthly_avg_aqi_df.set_index('Year').T.plot(ax=ax, cmap='Blues', marker='o')
+monthly_avg_aqi_df.set_index('Year').T.plot(ax=ax, cmap='Oranges', marker='o')
 ax.set_title("Average AQI by Month (Grouped by Year)", fontsize=16)
 ax.set_xlabel("Month", fontsize=12)
 ax.set_ylabel("Average AQI", fontsize=12)
 plt.xticks(range(12), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 st.pyplot(fig)
 
-st.markdown("<br>", unsafe_allow_html=True)
-
-# seasonal trends
-st.subheader("Seasonal AQI Patterns")
-filtered_df["Month"] = filtered_df["Date"].dt.month
-monthly_avg_aqi = filtered_df.groupby("Month")["PM2.5"].mean()
-fig, ax = plt.subplots(figsize=(10, 5))
-sns.barplot(x=monthly_avg_aqi.index, y=monthly_avg_aqi.values, palette="Blues", ax=ax)
-ax.set_title("Average AQI by Month", fontsize=16)
-ax.set_xlabel("Month", fontsize=12)
-ax.set_ylabel("Average AQI", fontsize=12)
-st.pyplot(fig)
-
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.header("Air Quality Index Distribution by Category")
 
 # bar chart: AQI category distribution
 bins = [0, 50, 100, 150, 200, 300, 500]
@@ -127,12 +150,12 @@ labels = ['Good', 'Moderate', 'Unhealthy for Sensitive Groups', 'Unhealthy', 'Ve
 filtered_df['aqi_category'] = pd.cut(filtered_df['PM2.5'], bins=bins, labels=labels, right=True)
 st.subheader("AQI Category Distribution")
 aqi_categories = filtered_df["aqi_category"].value_counts()
-fig, ax = plt.subplots(figsize=(8, 5))
-sns.barplot(x=aqi_categories.index, y=aqi_categories.values, palette="coolwarm", ax=ax)
+fig, ax = plt.subplots(figsize=(12, 8))
+palette = sns.color_palette("Reds", n_colors=len(aqi_categories))[::-1]
+sns.barplot(y=aqi_categories.index, x=aqi_categories.values, palette=palette, ax=ax)
 ax.set_title("Frequency of AQI Categories", fontsize=16)
-ax.set_ylabel("Count", fontsize=12)
-ax.set_xlabel("Category", fontsize=12)
-plt.xticks(rotation=45, ha='right')  # Memiringkan label sebesar 45 derajat dan mengatur posisi horizontalnya ke kanan
+ax.set_xlabel("Count", fontsize=12)
+ax.set_ylabel("Category", fontsize=12)
 st.pyplot(fig)
 
 # footer
