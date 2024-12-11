@@ -64,11 +64,3 @@ streamlit run dashboard/dashboard.py
 ### Access the Dashboard
 Check the `url.txt` file for the link to the hosted version of the dashboard.
 
-
-## License
-This project is licensed under the MIT License.
-
-## Acknowledgments
-- Data sourced from the `data/` directory.
-- Visualizations powered by Python libraries.
-```
