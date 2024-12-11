@@ -1,7 +1,9 @@
 # SHUNYI AQI DASHBOARD✨
 
-This project is focused on analyzing and visualizing the Air Quality Index (AQI) data from Shunyi, China, between 2013 and 2017. The primary goal is to explore trends in air quality, understand seasonal patterns, and visualize the AQI categories (Good, Moderate, Unhealthy, etc.) using various plots and interactive dashboards.
-The analysis is visualized using Streamlit, an interactive framework that allows users to filter AQI data by date and AQI range and explore the data through charts and metrics.
+
+## Overview
+
+This project focuses on analyzing and visualizing the Air Quality Index (AQI) data from Shunyi, China (2013-2017). It explores trends, seasonal patterns, and AQI categories (Good, Moderate, Unhealthy, etc.). Data visualization is powered by Streamlit, enabling interactive exploration.
 
 ## Project Structure
 
@@ -21,57 +23,59 @@ The analysis is visualized using Streamlit, an interactive framework that allows
 ## Getting Started
 
 ### Prerequisites
-
-Ensure you have the following installed:
 - Python 3.10 or higher
 - Jupyter Notebook
 - Required libraries listed in `requirements.txt`
 
-### Setup
+### Setup Environment - Anaconda
+```bash
+conda create --name aqi_env python=3.10
+conda activate aqi_env
+pip install -r requirements.txt
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/ngaeninurul/data_analyst_project.git
-   cd data_analyst_project
-   ```
+### Setup Environment - Shell/Terminal
+```bash
+mkdir data_analyst_project
+cd data_analyst_project
+pipenv install
+pipenv shell
+pip install -r requirements.txt
+```
 
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Usage
 
-3. **Prepare the data**:
-   Ensure the `data/` directory contains the required CSV files.
+### Clone the Repository
+```bash
+git clone https://github.com/ngaeninurul/data_analyst_project.git
+cd data_analyst_project
+```
 
-### Running the Notebook
-
-To analyze the data, open the Jupyter Notebook:
-
+### Run the Notebook
 ```bash
 jupyter notebook notebook.ipynb
 ```
 
-### Running the Dashboard
-
-Run the interactive dashboard using the following command:
-
+### Run the Dashboard
 ```bash
-python dashboard/dashboard.py
+streamlit run dashboard/dashboard.py
 ```
 
-### Accessing the Dashboard via URL
+### Access the Dashboard
+Check the `url.txt` file for the link to the hosted version of the dashboard.
 
-To access the dashboard, refer to the **url.txt** file, which contains the link to the hosted version of the dashboard.
+---
 
-### Deployment
+## Deployment
 
-To deploy the dashboard to a server, ensure that the dependencies in `requirements.txt` are installed in the target environment. You can use a web server or a hosting service that supports Python applications.
+To deploy the dashboard on a server, install dependencies in the target environment and configure Streamlit with hosting solutions like Heroku or AWS.
+
+---
 
 ## License
-
 This project is licensed under the MIT License.
 
 ## Acknowledgments
-
-- Air quality data provided in the `data/` directory.
-- Dashboard designed using Python's visualization libraries.
+- Data sourced from the `data/` directory.
+- Visualizations powered by Python libraries.
+```
