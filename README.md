@@ -36,8 +36,8 @@ pip install -r requirements.txt
 
 ### Setup Environment - Shell/Terminal
 ```bash
-mkdir data_analyst_project
-cd data_analyst_project
+mkdir shunyi_aqi_dashboard
+cd shunyi_aqi_dashboard
 pipenv install
 pipenv shell
 pip install -r requirements.txt
@@ -47,8 +47,8 @@ pip install -r requirements.txt
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/ngaeninurul/data_analyst_project.git
-cd data_analyst_project
+git clone https://github.com/ngaeninurul/shunyi_aqi_dashboard.git
+cd shunyi_aqi_dashboard
 ```
 
 ### Run the Notebook
